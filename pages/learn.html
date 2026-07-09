@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Center - CraftIdentity</title>
+
+    <!-- Fuentes oficiales de Google Fonts -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@300;400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <!-- Hojas de estilo modulares -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/home.css"> 
+    <link rel="stylesheet" href="../assets/css/learn.css"> 
+</head>
+<body class="theme-overworld">
+
+<!-- ================= BARRA LATERAL CON BOTÓN DE COLAPSO ================= -->
+<aside class="sidebar" id="sidebar">
+    
+    <button class="toggle-sidebar-btn" id="btnToggleSidebar">
+        <img src="../assets/images/toggle-icon.png" class="toggle-btn-img" alt="Toggle">
+    </button>
+    
+    <div class="user-profile-wrapper">
+        <a href="profile.html" class="user-profile-box">
+            <img src="../assets/images/perfil.png" class="user-avatar-img" alt="Avatar">
+            <span class="username sidebar-text">LainFran</span>
+        </a>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a href="../index.html" class="nav-item">
+            <img src="../assets/images/grass-block.png" class="sidebar-icon" alt="Home">
+            <span class="sidebar-text">INICIO</span>
+        </a>
+        <a href="studio.html" class="nav-item">
+            <img src="../assets/images/crafting-table.png" class="sidebar-icon" alt="Studio">
+            <span class="sidebar-text">SKIN STUDIO</span>
+        </a>
+        <a href="learn.html" class="nav-item active">
+            <img src="../assets/images/book.png" class="sidebar-icon" alt="Learn">
+            <span class="sidebar-text">LEARN CENTER</span>
+        </a>
+        <a href="repository.html" class="nav-item">
+            <img src="../assets/images/chest.png" class="sidebar-icon" alt="Repo">
+            <span class="sidebar-text">REPOSITORIO</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="login.html" class="nav-item login-btn">
+            <img src="../assets/images/totem.png" class="sidebar-icon" alt="Login">
+            <span class="sidebar-text">INICIAR<br>SESIÓN</span>
+        </a>
+        <a href="#" class="nav-item settings-btn" id="btnAjustes">
+            <img src="../assets/images/redstone.png" class="sidebar-icon" alt="Ajustes">
+            <span class="sidebar-text">AJUSTES</span>
+        </a>
+    </div>
+</aside>
+
+<!-- ================= CONTENEDOR PRINCIPAL DERECHO ================= -->
+<main class="main-content-wrapper">
+
+    <!-- HERO CON IMAGEN DE BLOCKBENCH Y BUSCADOR -->
+    <section class="hero">
+        <div class="hero-logo-wrapper">
+            <img src="../assets/images/learn_center.png" class="hero-logo" alt="Learn Center">
+        </div>
+        <p class="slogan">Aprende los fundamentos técnicos de los aspectos y domina los secretos del texturizado pixelado.</p>
+        
+        <div class="learn-search-box">
+            <input type="text" id="learnSearchInput" placeholder="¿Qué deseas aprender hoy? (Ej. Capas, Sombreado...)">
+            <button class="btn-search-pixel" id="btnLearnSearch">BUSCAR</button>
+        </div>
+    </section>
+
+    <!-- SECCIÓN INFORMATIVA REESTRUCTURADA CON TÍTULOS PIXEL -->
+    <section class="about">
+        <div class="features">
+            
+            <!-- Tarjeta 1: Principiantes -->
+            <div class="feature-card">
+                <div class="card-header-layout">
+                    <img src="../assets/images/principiante.png" class="card-pixel-icon" alt="Novato">
+                    <h2 class="pixel-title card-inline-title">Zona Aprendiz</h2>
+                </div>
+                <p>Conceptos básicos para adentrarte en el mundo de las identidades pixeladas.</p>
+                <ul class="learn-internal-links">
+                    <li><a href="#">¿Qué es una skin de Minecraft?</a></li>
+                    <li><a href="#">¿Qué partes del cuerpo puedo personalizar?</a></li>
+                    <li><a href="#">¿Cómo instalo una skin en el juego?</a></li>
+                </ul>
+            </div>
+
+            <!-- Tarjeta 2: Expertos -->
+            <div class="feature-card">
+                <div class="card-header-layout">
+                    <img src="../assets/images/maestro.png" class="card-pixel-icon" alt="Experto">
+                    <h2 class="pixel-title card-inline-title">Técnicas de Maestro</h2>
+                </div>
+                <p>Aprende el uso avanzado de píxeles y herramientas de renderizado tridimensional.</p>
+                <ul class="learn-internal-links">
+                    <li><a href="#">Uso creativo de la capa Overlay</a></li>
+                    <li><a href="#">Diferencias de píxeles: Alex vs Steve</a></li>
+                    <li><a href="#">Optimización de texturas transparentes</a></li>
+                </ul>
+            </div>
+            
+        </div>
+    </section>
+</main>
+<!-- ================= PANEL DE CONFIGURACIÓN MODULAR (RUTAS CORREGIDAS CON ../) ================= -->
+<div class="settings-modal" id="settingsModal">
+    <div class="settings-box">
+        
+        <header class="settings-header">
+            <h3>
+                <img src="../assets/images/command-block.gif" class="settings-title-icon" alt="CmdBlock">
+                CONFIGURACIÓN
+            </h3>
+            <button class="close-settings-btn" id="btnCloseSettings">❌</button>
+        </header>
+
+        <div class="settings-content">
+            
+            <!-- SECCIÓN 1: VIAJE DIMENSIONAL -->
+            <section class="settings-section">
+                <h4>
+                    <img src="../assets/images/eye-of-ender.png" class="settings-title-icon" alt="Dimension">
+                    SELECCIONAR DIMENSIÓN
+                </h4>
+                <div class="dimension-grid">
+                    <button class="settings-action-btn active" id="btnThemeOverworld">
+                        <img src="../assets/images/flower-dandelion.png" class="btn-dimension-icon" alt="Overworld"> OSCURO
+                    </button>
+                    <button class="settings-action-btn" id="btnThemeCuarzo">
+                        <img src="../assets/images/flower-lily.png" class="btn-dimension-icon" alt="Cuarzo"> CLARO
+                    </button>
+                    <button class="settings-action-btn" id="btnThemeNether">
+                        <img src="../assets/images/fungus-crimson.png" class="btn-dimension-icon" alt="Nether"> NETHER
+                    </button>
+                    <button class="settings-action-btn" id="btnThemeEnd">
+                        <img src="../assets/images/coral-fruit.png" class="btn-dimension-icon" alt="End"> EL END
+                    </button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: JUKEBOX CON REPRODUCTOR -->
+            <section class="settings-section">
+                <h4>
+                    <img src="../assets/images/jukebox-block.png" class="settings-title-icon" alt="Music">
+                    JUKEBOX DE LA COMUNIDAD
+                </h4>
+                
+                <div class="jukebox-player-wrapper">
+                    <div class="now-playing-visor">
+                        <span class="visor-label">AHORA SUENA:</span>
+                        <span class="visor-track" id="visorTrackName">Minecraft Soundtrack - Ambient</span>
+                    </div>
+                    <div class="player-controls">
+                        <button class="player-ctrl-btn" id="btnJukeboxPlay" title="Reproducir">▶</button>
+                        <button class="player-ctrl-btn" id="btnJukeboxPause" title="Pausar">⏸</button>
+                    </div>
+                </div>
+
+                <div class="volume-control">
+                    <label for="volumeRange">
+                        <img src="../assets/images/icon-noteblock.png" class="settings-title-icon" alt="Sound"> VOLUMEN:
+                    </label>
+                    <input type="range" id="volumeRange" min="0" max="100" value="50">
+                </div>
+
+                <button class="ambient-reset-btn active-disc" id="btnResetAmbient" data-track="ambient">
+                    <img src="../assets/images/icon-sapling.gif" class="btn-dimension-icon" alt="Reset"> RESTAURAR MÚSICA AMBIENTAL
+                </button>
+
+                <div class="jukebox-grid dynamic-6-grid">
+                    <button class="disc-btn" data-track="pigstep">
+                        <img src="../assets/images/disc-pigstep.png" class="btn-disc-icon" alt="Pigstep"> Pigstep
+                    </button>
+                    <button class="disc-btn" data-track="otherside">
+                        <img src="../assets/images/disc-otherside.png" class="btn-disc-icon" alt="Otherside"> Otherside
+                    </button>
+                    <button class="disc-btn" data-track="precipice">
+                        <img src="../assets/images/disc-precipice.png" class="btn-disc-icon" alt="Precipice"> Precipice
+                    </button>
+                    <button class="disc-btn" data-track="cat">
+                        <img src="../assets/images/disc-cat.png" class="btn-disc-icon" alt="Cat"> Cat
+                    </button>
+                    <button class="disc-btn" data-track="strad">
+                        <img src="../assets/images/disc-strad.png" class="btn-disc-icon" alt="Strad"> Strad
+                    </button>
+                    <button class="disc-btn" data-track="far">
+                        <img src="../assets/images/disc-far.png" class="btn-disc-icon" alt="Far"> Far
+                    </button>
+                </div>
+                <audio id="jukeboxAudio" loop></audio>
+            </section>
+
+            <!-- SECCIÓN 3: IDIOMA -->
+            <section class="settings-section">
+                <h4>
+                    <img src="../assets/images/book-written.png" class="settings-title-icon" alt="Language">
+                    IDIOMA / LANGUAGE
+                </h4>
+                <div class="lang-row">
+                    <button class="lang-btn active" data-lang="es">
+                        <img src="../assets/images/flag-es.png" class="btn-lang-icon" alt="ES"> ESPAÑOL
+                    </button>
+                    <button class="lang-btn" data-lang="en">
+                        <img src="../assets/images/flag-en.png" class="btn-lang-icon" alt="EN"> ENGLISH
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<!-- CONTENEDOR FLOTANTE EASTER EGG TÓTEM -->
+<div class="totem-easter-egg" id="totemOverlay">
+    <img src="../assets/images/totem-large.gif" class="totem-img" alt="Totem de Resurrección">
+    <audio id="totemAudio" src="../assets/sounds/totem.mp3"></audio>
+</div>
+
+<!-- VINCULACIÓN DE SCRIPTS MAESTROS -->
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/learn.js"></script>
+</body>
+</html>

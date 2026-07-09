@@ -1,0 +1,596 @@
+/* ================= ASSETS/CSS/STUDIO.CSS (BASE DEL SKIN STUDIO - FASE 1: ESTRUCTURA) ================= */
+
+/* Contenido interno del Studio. El margen/colapso del sidebar ya lo resuelve
+   globalmente .main-content-wrapper en style.css — aquí solo definimos el padding. */
+.studio-content-inner {
+    padding: 24px;
+    max-width: 1400px;
+}
+
+.studio-logo {
+    display: block;
+    max-height: 56px;
+    width: auto;
+    margin-bottom: 16px;
+    image-rendering: pixelated;
+}
+
+/* ================= ENVOLTORIO GENERAL: LAS 2 COLUMNAS ================= */
+.studio-editor-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    background: #1A1A1A;
+    padding: 16px;
+    border-radius: 6px;
+    align-items: stretch; /* Ambas columnas igualan su altura, mismo criterio que aprendimos en Preview */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Opciones Avanzadas: vive fuera del recuadro de trabajo, alineado bajo el visor */
+.studio-advanced-btn-row {
+    max-width: 560px;
+    margin-top: 10px;
+}
+
+/* ================= COLUMNA A: VISOR + OPCIONES AVANZADAS DEBAJO ================= */
+.studio-viewer-column {
+    flex: 1 1 auto;
+    max-width: 560px;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.studio-viewer-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: radial-gradient(circle, #161616 0%, #0B0B0B 100%);
+    border: 3px dashed #E1B12C; /* Amarillo distinto al verde de Preview, para diferenciar visualmente el Studio */
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.studio-viewer-container canvas {
+    cursor: grab;
+    display: block;
+}
+
+.studio-viewer-container canvas:active {
+    cursor: grabbing;
+}
+
+/* Contenedor con scroll para el modo 2D: cuando el zoom hace que el canvas exceda
+   el tamaño visible, aparecen barras de desplazamiento en vez de recortar la imagen */
+.studio-2d-viewport {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: flex; /* Centra el canvas cuando es más chico que el contenedor */
+    align-items: center;
+    justify-content: center;
+}
+
+.studio-2d-viewport canvas {
+    cursor: crosshair; /* Distinto al 3D (grab): en 2D el clic pinta, no rota */
+    image-rendering: pixelated;
+    flex-shrink: 0;
+}
+
+/* Controles de Zoom (esquina superior izquierda) */
+.studio-zoom-controls {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 5;
+}
+
+/* Toggle 3D/2D (esquina inferior derecha) */
+.studio-view-toggle {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 6px;
+    z-index: 5;
+}
+
+.studio-viewer-btn {
+    min-width: 30px;
+    height: 30px;
+    padding: 0 8px;
+    background: rgba(17, 17, 17, 0.85);
+    border: 1px solid #E1B12C;
+    color: #FFFFFF;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 11px;
+    line-height: 1;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.studio-viewer-btn:hover {
+    background: #B8860B;
+    border-color: #E1B12C;
+    transform: scale(1.08);
+}
+
+.studio-viewer-btn.active {
+    background: #E1B12C;
+    color: #1A1A1A;
+}
+
+/* ================= COLUMNA B: HERRAMIENTAS DE EDICIÓN ================= */
+.studio-tools-panel {
+    flex: 1 1 auto;
+    max-width: 560px;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Fila inferior: Paleta y Capas lado a lado, en vez de apiladas */
+.studio-bottom-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.studio-bottom-row .studio-block {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Bloques internos reutilizan la misma base visual que .control-block-section del Preview */
+.studio-block {
+    background: #111111;
+    border: 2px solid #2D2D2D;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.studio-block h5 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    color: #E1B12C;
+    margin: 0 0 8px 0;
+}
+
+/* Placeholder temporal: se reemplaza en cada fase siguiente por contenido real */
+.studio-block-placeholder {
+    color: #666666;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-style: italic;
+    padding: 10px 0;
+    text-align: center;
+    border: 1px dashed #333333;
+    border-radius: 4px;
+}
+
+/* --- Botones de herramientas (Pincel/Borrador, y las que se agreguen en próximas fases) --- */
+.studio-tools-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.studio-tool-btn {
+    width: 32px;
+    height: 32px;
+    background: #2D2D2D;
+    border-top: 3px solid #444444;
+    border-left: 3px solid #242424;
+    border-right: 3px solid #242424;
+    border-bottom: 4px solid #1A1A1A;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.studio-tool-btn:hover {
+    background: #353535;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.studio-tool-btn.active {
+    background: #388E3C;
+    border-top-color: #5CBA61;
+}
+
+/* Cuadrito de color activo: vive en la misma fila que las herramientas, sin texto (se sobreentiende) */
+.studio-color-swatch-inline {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #444444;
+    border-radius: 4px;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+/* Variante ancha: para botones con texto (Default/Slim), en vez del ícono cuadrado de 38x38 */
+.studio-tool-btn.wide {
+    box-sizing: border-box;
+    width: auto;
+    flex: 1;
+    height: 44px; /* Fija (no min-height): evita diferencias entre <label> y <button> */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    font-size: 10px;
+    font-family: 'Press Start 2P', cursive;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.6);
+}
+
+/* Cuando el sidebar está colapsado, hay más espacio libre — que el editor lo aproveche */
+body:has(.sidebar.collapsed) .studio-viewer-column,
+body:has(.sidebar.collapsed) .studio-tools-panel {
+    max-width: 650px;
+}
+
+/* --- Grilla de Paleta (5x5): colores que el jugador elige para pintar --- */
+.studio-palette-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.studio-palette-slot {
+    aspect-ratio: 1 / 1;
+    background: #1A1A1A;
+    border: 2px solid #333333;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.studio-palette-slot:hover {
+    transform: scale(1.08);
+    border-color: #00B0FF;
+}
+
+/* El slot que representa el color activo actual queda resaltado */
+.studio-palette-slot.selected {
+    border-color: #FFFFFF;
+    box-shadow: 0 0 0 2px #00B0FF;
+}
+
+.studio-palette-hint {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #666666;
+    margin: 0;
+    text-align: center;
+}
+
+/* ================= ADAPTACIÓN POR MODO DE COLOR ================= */
+body.theme-cuarzo .studio-editor-wrapper { background: #EFEBE9; }
+body.theme-cuarzo .studio-block { background: #D7CCC8; border-color: #BCAAA4; }
+body.theme-cuarzo .studio-block h5 { color: #3E2723; }
+body.theme-cuarzo .studio-content-inner h2 { color: #3E2723; }
+
+body.theme-nether .studio-editor-wrapper { background: #2D0F0F; }
+body.theme-nether .studio-block { background: #1A1111; border-color: #3A1212; }
+body.theme-nether .studio-block h5 { color: #FF4D4D; }
+body.theme-nether .studio-content-inner h2 { color: #FF4D4D; }
+
+body.theme-end .studio-editor-wrapper { background: #3F1E3B; }
+body.theme-end .studio-block { background: #1C111A; border-color: #3F243A; }
+body.theme-end .studio-block h5 { color: #E0B0FF; }
+body.theme-end .studio-content-inner h2 { color: #E0B0FF; }
+
+/* ================= MODAL DE CONFIRMACIÓN (CARGAR SKIN CON CAMBIOS SIN GUARDAR) ================= */
+.studio-confirm-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.studio-confirm-modal.open {
+    display: flex;
+}
+
+.studio-confirm-box {
+    background: #1A1A1A;
+    border: 3px solid #E1B12C;
+    border-radius: 6px;
+    padding: 24px;
+    max-width: 400px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.studio-confirm-box h4 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 13px;
+    color: #E1B12C;
+    margin: 0 0 14px 0;
+}
+
+.studio-confirm-box p {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #CCCCCC;
+    line-height: 1.6;
+    margin: 0 0 18px 0;
+}
+
+.studio-confirm-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* ================= MODAL: OPCIONES AVANZADAS ================= */
+.studio-advanced-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.studio-advanced-modal.open {
+    display: flex;
+}
+
+.studio-advanced-box {
+    background: #1A1A1A;
+    border: 3px solid #E1B12C;
+    border-radius: 6px;
+    width: 440px;
+    max-width: 90vw;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.studio-advanced-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 2px solid #2D2D2D;
+}
+
+.studio-advanced-header h3 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 13px;
+    color: #E1B12C;
+    margin: 0;
+}
+
+.studio-advanced-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.studio-advanced-section h4 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 11px;
+    color: #00B0FF;
+    margin: 0 0 12px 0;
+}
+
+.studio-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #CCCCCC;
+    cursor: pointer;
+}
+
+.studio-toggle-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.studio-gradient-gen-row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.studio-gradient-color-slot,
+.studio-gradient-count-slot {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #999999;
+}
+
+.studio-gradient-color-slot input[type="color"] {
+    width: 50px;
+    height: 32px;
+    border: 2px solid #444444;
+    border-radius: 4px;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.studio-gradient-count-slot input[type="number"] {
+    width: 60px;
+    height: 32px;
+    background: #2D2D2D;
+    border: 2px solid #444444;
+    border-radius: 4px;
+    color: #FFFFFF;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+}
+
+.studio-gradient-strip {
+    display: flex;
+    gap: 4px;
+    height: 44px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.studio-gradient-swatch {
+    flex: 1;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.studio-gradient-swatch:hover {
+    transform: scaleY(1.1);
+}
+
+.studio-advanced-hint {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-style: italic;
+    color: #666666;
+    margin: 0;
+}
+
+/* --- Barra RGB manual (Columna B, dentro de Herramientas) --- */
+.studio-rgb-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.studio-rgb-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: #999999;
+}
+
+.studio-rgb-field input[type="number"] {
+    width: 48px;
+    background: #2D2D2D;
+    border: 2px solid #444444;
+    border-radius: 4px;
+    color: #FFFFFF;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    padding: 4px 0;
+}
+
+.studio-rgb-preview {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #444444;
+    border-radius: 4px;
+}
+
+/* ================= MANIQUÍ DE CAPAS (versión compacta del Preview) ================= */
+.skin-doll-toggle-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0;
+}
+
+.doll-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.doll-label {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+    color: #888888;
+    letter-spacing: 0.5px;
+}
+
+.minecraft-doll-grid {
+    display: grid;
+    grid-template-columns: 20px 40px 20px;
+    grid-template-rows: 32px 48px 48px;
+    gap: 4px;
+    width: 88px;
+    justify-content: center;
+}
+
+.doll-part {
+    background: #252525;
+    border: 1px solid #3A3A3A;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    image-rendering: pixelated;
+}
+
+.part-head { grid-column: 2; grid-row: 1; border-radius: 4px; }
+.part-left-arm  { grid-column: 1; grid-row: 2; }
+.part-torso     { grid-column: 2; grid-row: 2; }
+.part-right-arm { grid-column: 3; grid-row: 2; }
+.part-left-leg  { grid-column: 2; grid-row: 3; width: 26px; justify-self: start; }
+.part-right-leg { grid-column: 2; grid-row: 3; width: 26px; justify-self: end; }
+
+.doll-part.active-part {
+    background: #388E3C;
+    border-color: #5CBA61;
+    box-shadow: inset 0 0 6px rgba(255,255,255,0.2);
+}
+.doll-part.active-part:hover { background: #43A047; transform: scale(1.05); }
+
+.overlay-doll .doll-part.active-part { background: #0288D1; border-color: #00B0FF; }
+.overlay-doll .doll-part.active-part:hover { background: #039BE5; }
+
+.doll-part:not(.active-part):hover { background: #444444; border-color: #666666; }
+
+/* --- Adaptación por modo de color (mismos valores que el Preview) --- */
+body.theme-cuarzo .doll-label { color: #5D4037; }
+body.theme-cuarzo .doll-part { background: #BCAAA4; border-color: #D7CCC8; }
+body.theme-cuarzo .doll-part.active-part { background: #8D6E63; border-color: #A1887F; }
+body.theme-cuarzo .overlay-doll .doll-part.active-part { background: #5D4037; border-color: #795548; }
+
+body.theme-nether .doll-label { color: #FFB3B3; }
+body.theme-nether .doll-part { background: #3A1212; border-color: #5C1D1D; }
+body.theme-nether .doll-part.active-part { background: #901A1A; border-color: #E19D29; }
+body.theme-nether .overlay-doll .doll-part.active-part { background: #B5651D; border-color: #FBC02D; }
+
+body.theme-end .doll-label { color: #D4B2D1; }
+body.theme-end .doll-part { background: #462242; border-color: #6C3C67; }
+body.theme-end .doll-part.active-part { background: #8E4A85; border-color: #E0B0FF; }
+body.theme-end .overlay-doll .doll-part.active-part { background: #5C3357; border-color: #A86FA0; }

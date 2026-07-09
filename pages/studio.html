@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Studio - Craftity</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/studio.css">
+</head>
+<body class="theme-overworld">
+
+<!-- ================= BARRA LATERAL (IDÉNTICA AL HOME, RUTAS AJUSTADAS A /pages/) ================= -->
+<aside class="sidebar" id="sidebar">
+
+    <button class="toggle-sidebar-btn" id="btnToggleSidebar">
+        <img src="../assets/images/toggle-icon.png" class="toggle-btn-img" alt="Toggle">
+    </button>
+
+    <!-- Perfil de Usuario Superior Enmarcado -->
+    <div class="user-profile-wrapper">
+        <a href="profile.html" class="user-profile-box">
+            <img src="../assets/images/perfil.png" class="user-avatar-img" alt="Avatar">
+            <span class="username sidebar-text">Invitado</span>
+        </a>
+    </div>
+
+    <!-- Menú Vertical Principal (activo: SKIN STUDIO) -->
+    <nav class="sidebar-nav">
+        <a href="../index.html" class="nav-item">
+            <img src="../assets/images/grass-block.png" class="sidebar-icon" alt="Home">
+            <span class="sidebar-text">INICIO</span>
+        </a>
+        <a href="studio.html" class="nav-item active">
+            <img src="../assets/images/crafting-table.png" class="sidebar-icon" alt="Studio">
+            <span class="sidebar-text">SKIN STUDIO</span>
+        </a>
+        <a href="learn.html" class="nav-item">
+            <img src="../assets/images/book.png" class="sidebar-icon" alt="Learn">
+            <span class="sidebar-text">LEARN CENTER</span>
+        </a>
+        <a href="repository.html" class="nav-item">
+            <img src="../assets/images/chest.png" class="sidebar-icon" alt="Repo">
+            <span class="sidebar-text">REPOSITORIO</span>
+        </a>
+    </nav>
+
+    <!-- Control de Sesión e Interfaz Inferior -->
+    <div class="sidebar-footer">
+        <a href="login.html" class="nav-item login-btn">
+            <img src="../assets/images/totem.png" class="sidebar-icon" alt="Login">
+            <span class="sidebar-text">INICIAR<br>SESIÓN</span>
+        </a>
+        <a href="#" class="nav-item settings-btn" id="btnAjustes">
+            <img src="../assets/images/redstone.png" class="sidebar-icon" alt="Ajustes">
+            <span class="sidebar-text">AJUSTES</span>
+        </a>
+    </div>
+
+</aside>
+
+
+<!-- ================= CONTENEDOR PRINCIPAL DERECHO ================= -->
+<main class="main-content-wrapper">
+    <div class="studio-content-inner">
+        <img src="../assets/images/skin_studio.png" alt="Skin Studio" class="studio-logo">
+
+        <!-- ================= ESQUELETO DE LAS 2 COLUMNAS DEL EDITOR ================= -->
+        <div class="studio-editor-wrapper">
+
+            <!-- COLUMNA A: VISOR DEL EDITOR -->
+            <div class="studio-viewer-column">
+                <div class="studio-viewer-container" id="studioViewerContainer">
+                    <!-- Contenedor con scroll: aparecen scrollbars cuando el zoom hace que el canvas exceda el visor -->
+                    <div class="studio-2d-viewport" id="studio2DViewport">
+                        <canvas id="studioCanvas2D"></canvas>
+                    </div>
+                    <canvas id="studioCanvas3D" style="display:none;"></canvas>
+
+                    <!-- Controles de Zoom -->
+                    <div class="studio-zoom-controls">
+                        <button class="studio-viewer-btn" id="studioBtnZoomIn" title="Acercar">+</button>
+                        <button class="studio-viewer-btn" id="studioBtnZoomOut" title="Alejar">−</button>
+                    </div>
+
+                    <!-- Toggle 3D / 2D (2D activo por defecto: es el único motor funcional en esta fase) -->
+                    <div class="studio-view-toggle">
+                        <button class="studio-viewer-btn" id="studioBtnView3D" title="Ver en 3D">3D</button>
+                        <button class="studio-viewer-btn active" id="studioBtnView2D" title="Ver en 2D">2D</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMNA B: HERRAMIENTAS DE EDICIÓN -->
+            <div class="studio-tools-panel">
+
+                <!-- Bloque Verde: Archivo + Complexión -->
+                <div class="studio-block">
+                    <h5>📂 ARCHIVO Y COMPLEXIÓN</h5>
+                    <div class="studio-tools-row">
+                        <label class="studio-tool-btn wide" for="studioSkinInput" style="cursor:pointer;">CARGAR SKIN</label>
+                        <input type="file" id="studioSkinInput" accept="image/png" style="display:none;">
+                        <button class="studio-tool-btn wide" id="btnDownloadSkin">💾 DESCARGAR</button>
+                    </div>
+                    <div class="studio-tools-row">
+                        <button class="studio-tool-btn wide active" id="studioBtnComplexionDefault">DEFAULT (4px)</button>
+                        <button class="studio-tool-btn wide" id="studioBtnComplexionSlim">SLIM (3px)</button>
+                    </div>
+                </div>
+
+                <!-- Bloque Azul: Herramientas de dibujo -->
+                <div class="studio-block">
+                    <h5>🖌️ HERRAMIENTAS</h5>
+                    <div class="studio-tools-row">
+                        <button class="studio-tool-btn active" id="toolBrush" title="Pincel">🖊️</button>
+                        <button class="studio-tool-btn" id="toolEraser" title="Borrador">🧹</button>
+                        <button class="studio-tool-btn" id="toolEyedropper" title="Cuentagotas">💧</button>
+                        <button class="studio-tool-btn" id="toolMarker" title="Marcador (bloque 3x3)">🖍️</button>
+                        <button class="studio-tool-btn" id="toolGradient" title="Degradado (mezcla con vecinos)">🌈</button>
+                        <button class="studio-tool-btn" id="toolBucket" title="Cubo (doble clic rellena la sección)">🧊</button>
+                        <button class="studio-tool-btn" id="toolLighten" title="Aclarar">☀️</button>
+                        <button class="studio-tool-btn" id="toolDarken" title="Oscurecer">🌑</button>
+                        <button class="studio-tool-btn" id="btnUndo" title="Deshacer (Ctrl+Z)">↩️</button>
+                        <button class="studio-tool-btn" id="btnRedo" title="Rehacer (Ctrl+Y)">↪️</button>
+                        <input type="color" id="studioColorPicker" value="#3C8527" title="Color activo" class="studio-color-swatch-inline">
+                    </div>
+                    <div class="studio-rgb-bar" id="studioRGBBar" style="display:none;">
+                        <div class="studio-rgb-field">
+                            <label>R</label>
+                            <input type="number" id="rgbInputR" min="0" max="255" value="60">
+                        </div>
+                        <div class="studio-rgb-field">
+                            <label>G</label>
+                            <input type="number" id="rgbInputG" min="0" max="255" value="133">
+                        </div>
+                        <div class="studio-rgb-field">
+                            <label>B</label>
+                            <input type="number" id="rgbInputB" min="0" max="255" value="39">
+                        </div>
+                        <div class="studio-rgb-preview" id="rgbPreviewSwatch"></div>
+                    </div>
+                </div>
+
+                <!-- Paleta (izquierda) y Capas (derecha), lado a lado -->
+                <div class="studio-bottom-row">
+                    <!-- Bloque Rojo: Paleta -->
+                    <div class="studio-block">
+                        <h5>🎨 PALETA</h5>
+                        <div class="studio-palette-grid" id="studioPaletteGrid"></div>
+                        <p class="studio-palette-hint">Clic: guardar/activar · Clic derecho: borrar</p>
+                    </div>
+
+                    <!-- Bloque Fucsia: Capas -->
+                    <div class="studio-block">
+                        <h5>🛡️ CAPAS</h5>
+                        <div class="skin-doll-toggle-container">
+                            <div class="doll-wrapper">
+                                <span class="doll-label">BODY</span>
+                                <div class="minecraft-doll-grid">
+                                    <div class="doll-part part-head active-part" id="studioToggleHead" data-part="head" title="Alternar Cabeza"></div>
+                                    <div class="doll-part part-left-arm active-part" id="studioToggleLeftArm" data-part="leftArm" title="Alternar Brazo Izquierdo"></div>
+                                    <div class="doll-part part-torso active-part" id="studioToggleTorso" data-part="torso" title="Alternar Torso"></div>
+                                    <div class="doll-part part-right-arm active-part" id="studioToggleRightArm" data-part="rightArm" title="Alternar Brazo Derecho"></div>
+                                    <div class="doll-part part-left-leg active-part" id="studioToggleLeftLeg" data-part="leftLeg" title="Alternar Pierna Izquierda"></div>
+                                    <div class="doll-part part-right-leg active-part" id="studioToggleRightLeg" data-part="rightLeg" title="Alternar Pierna Derecha"></div>
+                                </div>
+                            </div>
+                            <div class="doll-wrapper">
+                                <span class="doll-label">OVERLAY</span>
+                                <div class="minecraft-doll-grid overlay-doll">
+                                    <div class="doll-part part-head" id="studioToggleLayerHead" data-part="jacketHead" title="Overlay Cabeza"></div>
+                                    <div class="doll-part part-left-arm" id="studioToggleLayerLeftArm" data-part="jacketLeftArm" title="Overlay Brazo Izq"></div>
+                                    <div class="doll-part part-torso" id="studioToggleLayerTorso" data-part="jacketTorso" title="Overlay Torso"></div>
+                                    <div class="doll-part part-right-arm" id="studioToggleLayerRightArm" data-part="jacketRightArm" title="Overlay Brazo Der"></div>
+                                    <div class="doll-part part-left-leg" id="studioToggleLayerLeftLeg" data-part="jacketLeftLeg" title="Overlay Pierna Izq"></div>
+                                    <div class="doll-part part-right-leg" id="studioToggleLayerRightLeg" data-part="jacketRightLeg" title="Overlay Pierna Der"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Opciones Avanzadas: fuera del área de trabajo, es un agregado opcional, no una herramienta default -->
+        <div class="studio-advanced-btn-row">
+            <button class="studio-tool-btn wide" id="btnOpenAdvanced">⚙️ OPCIONES AVANZADAS</button>
+        </div>
+
+    </div>
+</main>
+
+
+<!-- ================= PANEL DE CONFIGURACIÓN MODULAR INTEGRAL (IDÉNTICO AL HOME) ================= -->
+<div class="settings-modal" id="settingsModal">
+    <div class="settings-box">
+
+        <header class="settings-header">
+            <h3>
+                <img src="../assets/images/command-block.gif" class="settings-title-icon" alt="CmdBlock">
+                CONFIGURACIÓN
+            </h3>
+            <button class="close-settings-btn" id="btnCloseSettings">❌</button>
+        </header>
+
+        <div class="settings-content">
+
+            <!-- SECCIÓN 1: VIAJE DIMENSIONAL -->
+            <section class="settings-section">
+                <h4>
+                    <img src="../assets/images/eye-of-ender.png" class="settings-title-icon" alt="Dimension">
+                    SELECCIONAR DIMENSIÓN
+                </h4>
+                <div class="dimension-grid">
+                    <button class="settings-action-btn active" id="btnThemeOverworld">
+                        <img src="../assets/images/flower-dandelion.png" class="btn-dimension-icon" alt="Overworld"> OSCURO
+                    </button>
+                    <button class="settings-action-btn" id="btnThemeCuarzo">
+                        <img src="../assets/images/flower-lily.png" class="btn-dimension-icon" alt="Cuarzo"> CLARO
+                    </button>
+                    <button class="settings-action-btn" id="btnThemeNether">
+                        <img src="../assets/images/fungus-crimson.png" class="btn-dimension-icon" alt="Nether"> NETHER
+                    </button>
+                    <button class="settings-action-btn" id="btnThemeEnd">
+                        <img src="../assets/images/coral-fruit.png" class="btn-dimension-icon" alt="End"> EL END
+                    </button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: JUKEBOX CON REPRODUCTOR Y RECURSOS DINÁMICOS -->
+            <section class="settings-section">
+                <h4>
+                    <img src="../assets/images/jukebox-block.png" class="settings-title-icon" alt="Music">
+                    JUKEBOX DE LA COMUNIDAD
+                </h4>
+
+                <div class="jukebox-player-wrapper">
+                    <div class="now-playing-visor">
+                        <span class="visor-label">AHORA SUENA:</span>
+                        <span class="visor-track" id="visorTrackName">Minecraft Soundtrack - Ambient</span>
+                    </div>
+                    <div class="player-controls">
+                        <button class="player-ctrl-btn" id="btnJukeboxPlay" title="Reproducir">▶</button>
+                        <button class="player-ctrl-btn" id="btnJukeboxPause" title="Pausar">⏸</button>
+                    </div>
+                </div>
+
+                <div class="volume-control">
+                    <label for="volumeRange">
+                        <img src="../assets/images/icon-noteblock.png" class="settings-title-icon" alt="Sound"> VOLUMEN:
+                    </label>
+                    <input type="range" id="volumeRange" min="0" max="100" value="50">
+                </div>
+
+                <button class="ambient-reset-btn active-disc" id="btnResetAmbient" data-track="ambient">
+                    <img src="../assets/images/icon-sapling.gif" class="btn-dimension-icon" alt="Reset"> RESTAURAR MÚSICA AMBIENTAL
+                </button>
+
+                <div class="jukebox-grid dynamic-6-grid">
+                    <button class="disc-btn" data-track="pigstep">
+                        <img src="../assets/images/disc-pigstep.png" class="btn-disc-icon" alt="Pigstep"> Pigstep
+                    </button>
+                    <button class="disc-btn" data-track="otherside">
+                        <img src="../assets/images/disc-otherside.png" class="btn-disc-icon" alt="Otherside"> Otherside
+                    </button>
+                    <button class="disc-btn" data-track="precipice">
+                        <img src="../assets/images/disc-precipice.png" class="btn-disc-icon" alt="Precipice"> Precipice
+                    </button>
+                    <button class="disc-btn" data-track="cat">
+                        <img src="../assets/images/disc-cat.png" class="btn-disc-icon" alt="Cat"> Cat
+                    </button>
+                    <button class="disc-btn" data-track="strad">
+                        <img src="../assets/images/disc-strad.png" class="btn-disc-icon" alt="Strad"> Strad
+                    </button>
+                    <button class="disc-btn" data-track="far">
+                        <img src="../assets/images/disc-far.png" class="btn-disc-icon" alt="Far"> Far
+                    </button>
+                </div>
+                <audio id="jukeboxAudio" loop></audio>
+            </section>
+
+            <!-- SECCIÓN 3: IDIOMA -->
+            <section class="settings-section">
+                <h4>
+                    <img src="../assets/images/book-written.png" class="settings-title-icon" alt="Language">
+                    IDIOMA / LANGUAGE
+                </h4>
+                <div class="lang-row">
+                    <button class="lang-btn active" data-lang="es">
+                        <img src="../assets/images/flag-es.png" class="btn-lang-icon" alt="ES"> ESPAÑOL
+                    </button>
+                    <button class="lang-btn" data-lang="en">
+                        <img src="../assets/images/flag-en.png" class="btn-lang-icon" alt="EN"> ENGLISH
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL: OPCIONES AVANZADAS ================= -->
+<div class="studio-advanced-modal" id="studioAdvancedModal">
+    <div class="studio-advanced-box">
+        <header class="studio-advanced-header">
+            <h3>⚙️ OPCIONES AVANZADAS</h3>
+            <button class="close-settings-btn" id="btnCloseAdvanced">❌</button>
+        </header>
+        <div class="studio-advanced-content">
+
+            <!-- Barra RGB Manual -->
+            <section class="studio-advanced-section">
+                <h4>🎚️ Entrada RGB Manual</h4>
+                <label class="studio-toggle-row">
+                    <input type="checkbox" id="toggleRGBBar">
+                    Mostrar barra de entrada RGB en Herramientas
+                </label>
+            </section>
+
+            <!-- Generador Visual de Degradado -->
+            <section class="studio-advanced-section">
+                <h4>🌈 Generador de Degradado (referencia visual)</h4>
+                <div class="studio-gradient-gen-row">
+                    <div class="studio-gradient-color-slot">
+                        <label>Color 1</label>
+                        <input type="color" id="gradGenColor1" value="#FF0039">
+                    </div>
+                    <div class="studio-gradient-color-slot">
+                        <label>Color 2</label>
+                        <input type="color" id="gradGenColor2" value="#E38125">
+                    </div>
+                    <div class="studio-gradient-count-slot">
+                        <label>Cantidad</label>
+                        <input type="number" id="gradGenCount" min="2" max="10" value="5">
+                    </div>
+                </div>
+                <div class="studio-gradient-strip" id="gradGenStrip"></div>
+                <p class="studio-advanced-hint">Es solo una guía visual — hacé clic en un tono para usarlo como color activo (no se agrega a la Paleta).</p>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODAL: CONFIRMACIÓN DE CAMBIOS SIN GUARDAR (CARGAR SKIN) ================= -->
+<div class="studio-confirm-modal" id="studioConfirmModal">
+    <div class="studio-confirm-box">
+        <h4>⚠️ ¿Perder tu diseño actual?</h4>
+        <p>Tienes cambios sin guardar en tu skin. Si cargas un nuevo archivo, se perderá lo que llevas hecho hasta ahora.</p>
+        <div class="studio-confirm-actions">
+            <button class="studio-tool-btn wide" id="studioConfirmCancel">Cancelar</button>
+            <button class="studio-tool-btn wide" id="studioConfirmProceed">Cargar de todas formas</button>
+        </div>
+    </div>
+</div>
+
+<!-- TUS SCRIPTS SEPARADOS Y BLINDADOS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/studio.js"></script>
+</body>
+</html>
