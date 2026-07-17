@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Craftity</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
+</head>
+<body class="theme-overworld">
+
+<!-- ================= BARRA LATERAL (IDÉNTICA AL RESTO DEL SITIO) ================= -->
+<aside class="sidebar" id="sidebar">
+
+    <button class="toggle-sidebar-btn" id="btnToggleSidebar">
+        <img src="../assets/images/toggle-icon.png" class="toggle-btn-img" alt="Toggle">
+    </button>
+
+    <div class="user-profile-wrapper">
+        <a href="profile.html" class="user-profile-box active">
+            <img src="../assets/images/perfil.png" class="user-avatar-img" alt="Avatar">
+            <span class="username sidebar-text">Invitado</span>
+        </a>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a href="../index.html" class="nav-item">
+            <img src="../assets/images/grass-block.png" class="sidebar-icon" alt="Home">
+            <span class="sidebar-text">INICIO</span>
+        </a>
+        <a href="studio.html" class="nav-item">
+            <img src="../assets/images/crafting-table.png" class="sidebar-icon" alt="Studio">
+            <span class="sidebar-text">SKIN STUDIO</span>
+        </a>
+        <a href="learn.html" class="nav-item">
+            <img src="../assets/images/book.png" class="sidebar-icon" alt="Learn">
+            <span class="sidebar-text">LEARN CENTER</span>
+        </a>
+        <a href="repository.html" class="nav-item">
+            <img src="../assets/images/chest.png" class="sidebar-icon" alt="Repo">
+            <span class="sidebar-text">REPOSITORIO</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="login.html" class="nav-item login-btn">
+            <img src="../assets/images/totem.png" class="sidebar-icon" alt="Login">
+            <span class="sidebar-text">INICIAR<br>SESIÓN</span>
+        </a>
+        <a href="#" class="nav-item settings-btn" id="btnAjustes">
+            <img src="../assets/images/redstone.png" class="sidebar-icon" alt="Ajustes">
+            <span class="sidebar-text">AJUSTES</span>
+        </a>
+    </div>
+
+</aside>
+
+
+<!-- ================= CONTENEDOR PRINCIPAL: PERFIL ================= -->
+<main class="main-content-wrapper">
+    <div class="profile-content-inner">
+
+        <div class="profile-layout">
+
+            <!-- COLUMNA IZQUIERDA: LA FICHA TIPO PASAPORTE -->
+            <div class="passport-card">
+                <img src="../assets/images/plantilla_perfil.png" class="passport-bg" alt="">
+
+                <div class="passport-overlay">
+
+                    <!-- Encabezado: título "Craftity Card" + botón de editar dentro de la propia ficha -->
+                    <div class="passport-header-row">
+                        <img src="../assets/images/profile_card.png" class="passport-title-img" alt="Craftity Card">
+                        <button class="passport-edit-btn" id="btnEditProfile" style="display:none;" title="Editar perfil">
+                            <img src="../assets/images/editar.jpg" alt="Editar">
+                        </button>
+                    </div>
+
+                    <!-- Foto + Nick + Idioma (bandera), lado a lado -->
+                    <div class="passport-identity-row">
+                        <div class="passport-photo-box">
+                            <canvas id="headCanvas" width="64" height="64"></canvas>
+                        </div>
+                        <div class="passport-identity-info">
+                            <p class="passport-label">NICK:</p>
+                            <p class="passport-value" id="passportUsername">Cargando...</p>
+                            <div class="passport-badges" id="passportBadges"></div>
+                            <p class="passport-label">IDIOMA:</p>
+                            <img class="passport-flag" id="passportIdiomaFlag" src="" alt="" style="display:none;">
+                            <span class="passport-value-small" id="passportIdiomaFallback">No especificado</span>
+                        </div>
+                    </div>
+
+                    <!-- Campos con su propia caja debajo, tal como en el boceto -->
+                    <div class="passport-field-block">
+                        <p class="passport-label">FECHA DE CREACIÓN:</p>
+                        <div class="passport-value-box" id="passportCreated">--</div>
+                    </div>
+
+                    <div class="passport-field-block">
+                        <p class="passport-label">TAGS:</p>
+                        <div class="passport-value-box passport-tags" id="passportTags"></div>
+                    </div>
+
+                    <div class="passport-field-block passport-field-block-bio">
+                        <p class="passport-label">BIOGRAFÍA:</p>
+                        <div class="passport-value-box passport-bio-box" id="passportBio">Sin biografía todavía.</div>
+                    </div>
+
+                    <div class="passport-footer">
+                        <span id="passportNumber">----‑----‑----‑----</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: ACTIVIDAD (Social primero, Logros crece hacia abajo con el tiempo) -->
+            <div class="activity-panel">
+
+                <div class="activity-block">
+                    <h5>👥 SOCIAL</h5>
+                    <div class="social-stats-row">
+                        <div class="social-stat"><strong id="followersCount">0</strong><span>Seguidores</span></div>
+                        <div class="social-stat"><strong id="followingCount">0</strong><span>Siguiendo</span></div>
+                        <div class="social-stat"><strong id="likesCount">0</strong><span>Likes</span></div>
+                    </div>
+                    <button class="follow-btn" id="btnFollowToggle" style="display:none;">SEGUIR</button>
+                </div>
+
+                <div class="activity-block">
+                    <h5>🏆 LOGROS</h5>
+                    <p class="activity-placeholder">Próximamente — Fase 4</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- GALERÍA PERSONAL (placeholder, Fase 3) -->
+        <div class="profile-gallery-section">
+            <h5>🖼️ GALERÍA PERSONAL</h5>
+            <div class="gallery-grid" id="galleryGrid"></div>
+            <p class="activity-placeholder" id="galleryEmptyMsg" style="display:none;">Todavía no hay skins publicadas acá.</p>
+        </div>
+
+    </div>
+</main>
+
+
+<!-- ================= MODAL: EDITAR PERFIL ================= -->
+<div class="profile-edit-modal" id="profileEditModal">
+    <div class="profile-edit-box">
+        <header class="settings-header">
+            <h3>✏️ EDITAR PERFIL</h3>
+            <button class="close-settings-btn" id="btnCloseEdit">❌</button>
+        </header>
+
+        <form id="formEditProfile" class="auth-form">
+
+            <label for="editSkinFile">Foto de perfil (subí tu skin completa, 64x64)</label>
+            <input type="file" id="editSkinFile" accept="image/png">
+
+            <label for="editIdioma">Idioma</label>
+            <select id="editIdioma">
+                <option value="">Sin especificar</option>
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="pt">Português</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="it">Italiano</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+            </select>
+
+            <label for="editTagInput">Tags (máximo 3 — Enter para agregar)</label>
+            <input type="text" id="editTagInput" placeholder="Ej: Fantasy, Anime, Medieval">
+            <div class="tags-chips" id="tagsChips"></div>
+
+            <label for="editBio">Biografía (<span id="bioCounter">0</span>/300)</label>
+            <textarea id="editBio" maxlength="300" rows="4"></textarea>
+
+            <button type="submit" class="auth-submit-btn">GUARDAR CAMBIOS</button>
+            <p class="auth-error" id="editProfileError"></p>
+        </form>
+    </div>
+</div>
+
+
+<!-- ================= PANEL DE CONFIGURACIÓN MODULAR INTEGRAL (IDÉNTICO AL RESTO DEL SITIO) ================= -->
+<div class="settings-modal" id="settingsModal">
+    <div class="settings-box">
+
+        <header class="settings-header">
+            <h3>
+                <img src="../assets/images/command-block.gif" class="settings-title-icon" alt="CmdBlock">
+                CONFIGURACIÓN
+            </h3>
+            <button class="close-settings-btn" id="btnCloseSettings">❌</button>
+        </header>
+
+        <div class="settings-content">
+
+            <section class="settings-section">
+                <h4>
+                    <img src="../assets/images/eye-of-ender.png" class="settings-title-icon" alt="Dimension">
+                    SELECCIONAR DIMENSIÓN
+                </h4>
+                <div class="dimension-grid">
+                    <button class="settings-action-btn active" id="btnThemeOverworld">
+                        <img src="../assets/images/flower-dandelion.png" class="btn-dimension-icon" alt="Overworld"> OSCURO
+                    </button>
+                    <button class="settings-action-btn" id="btnThemeCuarzo">
+                        <img src="../assets/images/flower-lily.png" class="btn-dimension-icon" alt="Cuarzo"> CLARO
+                    </button>
+                    <button class="settings-action-btn" id="btnThemeNether">
+                        <img src="../assets/images/fungus-crimson.png" class="btn-dimension-icon" alt="Nether"> NETHER
+                    </button>
+                    <button class="settings-action-btn" id="btnThemeEnd">
+                        <img src="../assets/images/coral-fruit.png" class="btn-dimension-icon" alt="End"> EL END
+                    </button>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <h4>
+                    <img src="../assets/images/jukebox-block.png" class="settings-title-icon" alt="Music">
+                    JUKEBOX DE LA COMUNIDAD
+                </h4>
+
+                <div class="jukebox-player-wrapper">
+                    <div class="now-playing-visor">
+                        <span class="visor-label">AHORA SUENA:</span>
+                        <span class="visor-track" id="visorTrackName">Minecraft Soundtrack - Ambient</span>
+                    </div>
+                    <div class="player-controls">
+                        <button class="player-ctrl-btn" id="btnJukeboxPlay" title="Reproducir">▶</button>
+                        <button class="player-ctrl-btn" id="btnJukeboxPause" title="Pausar">⏸</button>
+                    </div>
+                </div>
+
+                <div class="volume-control">
+                    <label for="volumeRange">
+                        <img src="../assets/images/icon-noteblock.png" class="settings-title-icon" alt="Sound"> VOLUMEN:
+                    </label>
+                    <input type="range" id="volumeRange" min="0" max="100" value="50">
+                </div>
+
+                <button class="ambient-reset-btn active-disc" id="btnResetAmbient" data-track="ambient">
+                    <img src="../assets/images/icon-sapling.gif" class="btn-dimension-icon" alt="Reset"> RESTAURAR MÚSICA AMBIENTAL
+                </button>
+
+                <div class="jukebox-grid dynamic-6-grid">
+                    <button class="disc-btn" data-track="pigstep">
+                        <img src="../assets/images/disc-pigstep.png" class="btn-disc-icon" alt="Pigstep"> Pigstep
+                    </button>
+                    <button class="disc-btn" data-track="otherside">
+                        <img src="../assets/images/disc-otherside.png" class="btn-disc-icon" alt="Otherside"> Otherside
+                    </button>
+                    <button class="disc-btn" data-track="precipice">
+                        <img src="../assets/images/disc-precipice.png" class="btn-disc-icon" alt="Precipice"> Precipice
+                    </button>
+                    <button class="disc-btn" data-track="cat">
+                        <img src="../assets/images/disc-cat.png" class="btn-disc-icon" alt="Cat"> Cat
+                    </button>
+                    <button class="disc-btn" data-track="strad">
+                        <img src="../assets/images/disc-strad.png" class="btn-disc-icon" alt="Strad"> Strad
+                    </button>
+                    <button class="disc-btn" data-track="far">
+                        <img src="../assets/images/disc-far.png" class="btn-disc-icon" alt="Far"> Far
+                    </button>
+                </div>
+                <audio id="jukeboxAudio" loop></audio>
+            </section>
+
+            <section class="settings-section">
+                <h4>
+                    <img src="../assets/images/book-written.png" class="settings-title-icon" alt="Language">
+                    IDIOMA / LANGUAGE
+                </h4>
+                <div class="lang-row">
+                    <button class="lang-btn active" data-lang="es">
+                        <img src="../assets/images/flag-es.png" class="btn-lang-icon" alt="ES"> ESPAÑOL
+                    </button>
+                    <button class="lang-btn" data-lang="en">
+                        <img src="../assets/images/flag-en.png" class="btn-lang-icon" alt="EN"> ENGLISH
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<!-- TUS SCRIPTS SEPARADOS Y BLINDADOS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/profile.js"></script>
+</body>
+</html>
