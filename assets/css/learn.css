@@ -1,0 +1,187 @@
+/* =========================================================================
+   CRAFTIDENTITY - LEARN CENTER (PARTE 1: LAYOUT, BUSCADOR Y TIPOGRAFÍA)
+   ========================================================================= */
+
+/* 1. ADAPTACIÓN DE LA PANTALLA CON SIDEBAR COLAPSADO */
+.main-content-wrapper {
+    margin-left: 260px;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+}
+
+body #sidebar.collapsed ~ .main-content-wrapper,
+body .sidebar.collapsed ~ .main-content-wrapper {
+    margin-left: 85px;
+}
+
+/* 2. ANIMACIÓN DEL LOGO BLOCKBENCH (SIN CURSOR DE ENLACE PRESIONABLE) */
+.hero-logo {
+    cursor: default !important;
+    pointer-events: auto;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hero-logo:hover {
+    transform: translateY(-6px) scale(1.02);
+}
+
+/* 3. INTERFAZ DE LA BARRA DE BÚSQUEDA */
+.learn-search-box {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    max-width: 550px;
+    margin: 25px auto 0 auto;
+}
+
+.learn-search-box input {
+    flex-grow: 1;
+    background: #1A1A1A;
+    border: 2px solid #3A3A3A;
+    padding: 12px 16px;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    border-radius: 4px;
+    outline: none;
+}
+
+.btn-search-pixel {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    background: #388E3C;
+    color: #FFFFFF;
+    border: none;
+    padding: 0 20px;
+    border-top: 3px solid #5CBA61;
+    border-bottom: 4px solid #1A1A1A;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    border-radius: 4px;
+}
+
+.btn-search-pixel:hover {
+    transform: translateY(-2px);
+    background: #43A047;
+}
+
+/* 4. AMPLITUD Y MAQUETACIÓN DE LAS TARJETAS */
+.about {
+    max-width: 1150px !important;
+    width: 100%;
+}
+
+.features {
+    gap: 25px;
+    margin-top: 35px;
+}
+
+.feature-card {
+    padding: 25px 30px !important;
+    box-sizing: border-box;
+}
+
+/* Internals del Header-Layout para empujar el icono y el título de forma lineal */
+.card-header-layout {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 0px;
+}
+
+/* FORZADO DE FUENTE PIXELADA EN LOS TÍTULOS DE LAS TARJETAS */
+.card-inline-title {
+    font-family: 'Press Start 2P', cursive !important;
+    font-size: 13px !important;
+    margin: 0 !important;
+    line-height: 1.2;
+    text-shadow: none !important;
+}
+
+/* Estilos elegantes para las listas de enlaces internos */
+.learn-internal-links {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0 0;
+    border-top: 1px dashed #2D2D2D;
+    padding-top: 12px;
+}
+
+.learn-internal-links li {
+    margin-bottom: 10px;
+}
+
+.learn-internal-links a {
+    color: #00B0FF; /* Azul Diamante base */
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.15s ease;
+}
+
+.learn-internal-links a:hover {
+    color: #80D8FF;
+    text-decoration: underline;
+}
+/* =========================================================================
+   CRAFTIDENTITY - LEARN CENTER (PARTE 2: PALETAS DE DIMENSIONES Y TEMAS)
+   ========================================================================= */
+
+/* Color por defecto del título de tarjeta en el Overworld */
+body.theme-overworld .card-inline-title { color: #FFFFFF !important; }
+
+/* ----------------- DIMENSIÓN CUARZO (MODO CLARO) ----------------- */
+body.theme-cuarzo .learn-search-box input { 
+    background: #FFFFFF; 
+    border-color: #BCAAA4; 
+    color: #3E2723; 
+}
+body.theme-cuarzo .card-inline-title { 
+    color: #3E2723 !important; 
+}
+body.theme-cuarzo .learn-internal-links {
+    border-top-color: #D7CCC8;
+}
+body.theme-cuarzo .learn-internal-links a { 
+    color: #8D6E63; 
+}
+body.theme-cuarzo .learn-internal-links a:hover { 
+    color: #5D4037; 
+}
+
+/* ----------------- DIMENSIÓN END (MÍSTICO) ----------------- */
+body.theme-end .learn-search-box input { 
+    background: #110710; 
+    border-color: #5C3357; 
+    color: #E0B0FF; 
+}
+body.theme-end .card-inline-title { 
+    color: #4A154B !important; 
+}
+body.theme-end .learn-internal-links {
+    border-top-color: #C4C094;
+}
+body.theme-end .learn-internal-links a { 
+    color: #7A4A75; 
+}
+body.theme-end .learn-internal-links a:hover { 
+    color: #5C3357; 
+}
+
+/* ----------------- DIMENSIÓN NETHER (INFERNAL) ----------------- */
+body.theme-nether .learn-search-box input { 
+    background: #1A1111; 
+    border-color: #3A1212; 
+    color: #FFB3B3; 
+}
+body.theme-nether .card-inline-title { 
+    color: #E19D29 !important; 
+}
+body.theme-nether .learn-internal-links {
+    border-top-color: #3A1212;
+}
+body.theme-nether .learn-internal-links a { 
+    color: #FF4D4D; 
+}
+body.theme-nether .learn-internal-links a:hover { 
+    color: #FFB3B3; 
+}

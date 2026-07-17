@@ -1,0 +1,439 @@
+/* ================= ASSETS/CSS/PROFILE.CSS (MÓDULO PROFILE - FASE 2) ================= */
+
+.profile-content-inner {
+    padding: 40px;
+    max-width: 1400px;
+}
+
+.profile-layout {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+/* ================= LA FICHA TIPO PASAPORTE ================= */
+.passport-card {
+    position: relative;
+    width: 480px;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+.passport-bg {
+    width: 100%;
+    display: block;
+    image-rendering: pixelated;
+    border-radius: 6px;
+}
+
+/* Todo el contenido dinámico se superpone sobre la plantilla.
+   NOTA: estas posiciones son un punto de partida — hay que ajustarlas a mano
+   una vez que se vea la plantilla real renderizada, cada plantilla es distinta. */
+.passport-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    padding: 6% 7%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+    color: #2D1B0E; /* Tono oscuro tipo tinta, legible sobre papel envejecido */
+}
+
+/* --- Encabezado: título "Craftity Card" + botón de editar, dentro de la propia ficha --- */
+.passport-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6%;
+}
+
+.passport-title-img {
+    height: 34px;
+    width: auto;
+    image-rendering: pixelated;
+}
+
+.passport-edit-btn {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 2px solid #2D1B0E;
+    border-radius: 4px;
+    background: rgba(45, 27, 14, 0.08);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.passport-edit-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.passport-edit-btn:hover {
+    background: rgba(45, 27, 14, 0.18);
+    transform: scale(1.06);
+}
+
+/* --- Fila de identidad: foto + Nick + Idioma --- */
+.passport-identity-row {
+    display: flex;
+    gap: 4%;
+    margin-bottom: 5%;
+}
+
+.passport-photo-box {
+    width: 22%;
+    aspect-ratio: 1 / 1;
+    border: 3px solid #2D1B0E;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #1A1A1A;
+    flex-shrink: 0;
+}
+
+.passport-photo-box canvas {
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    display: block;
+}
+
+.passport-identity-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.passport-label {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    margin: 0 0 3px 0;
+    opacity: 0.85;
+}
+
+.passport-value {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    margin: 0 0 8px 0;
+}
+
+.passport-value-small {
+    font-size: 12px;
+}
+
+.passport-flag {
+    height: 18px;
+    width: auto;
+    image-rendering: pixelated;
+    border: 1px solid #2D1B0E;
+    border-radius: 2px;
+}
+
+.passport-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 6px;
+}
+
+.passport-badge-chip {
+    background: rgba(45, 27, 14, 0.15);
+    border: 1px solid #2D1B0E;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+/* --- Bloques de campo: etiqueta arriba + "caja" del valor debajo, como en el boceto --- */
+.passport-field-block {
+    margin-bottom: 4%;
+}
+
+.passport-field-block-bio {
+    flex: 1; /* La biografía crece para ocupar el espacio restante de la ficha */
+    display: flex;
+    flex-direction: column;
+}
+
+.passport-value-box {
+    background: rgba(45, 27, 14, 0.08);
+    border: 2px solid rgba(45, 27, 14, 0.35);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 13px;
+    min-height: 20px;
+}
+
+.passport-bio-box {
+    flex: 1;
+    line-height: 1.5;
+}
+
+.passport-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.passport-tag-chip {
+    background: rgba(45, 27, 14, 0.12);
+    border: 1px solid rgba(45, 27, 14, 0.4);
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-size: 11px;
+}
+
+.passport-footer {
+    margin-top: 8px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    letter-spacing: 1px;
+    opacity: 0.75;
+}
+
+/* ================= COLUMNA DE ACTIVIDAD ================= */
+.activity-panel {
+    flex: 1;
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.activity-block {
+    background: #111111;
+    border: 2px solid #2D2D2D;
+    border-radius: 4px;
+    padding: 16px;
+}
+
+.activity-block h5 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 11px;
+    color: #E1B12C;
+    margin: 0 0 10px 0;
+}
+
+.activity-placeholder {
+    color: #666666;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-style: italic;
+    text-align: center;
+    margin: 8px 0 0 0;
+}
+
+.social-stats-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.social-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.social-stat strong {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    color: #00B0FF;
+}
+
+.social-stat span {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #999999;
+}
+
+.follow-btn {
+    width: 100%;
+    margin-top: 14px;
+    background: #388E3C;
+    border-top: 3px solid #5CBA61;
+    border-left: 3px solid #2E6B31;
+    border-right: 3px solid #2E6B31;
+    border-bottom: 4px solid #1F4A22;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.follow-btn:hover { transform: translateY(-2px); }
+
+.follow-btn.following-active {
+    background: #2D2D2D;
+    border-top-color: #444444;
+    border-left-color: #242424;
+    border-right-color: #242424;
+    border-bottom-color: #1A1A1A;
+}
+
+.follow-btn:disabled { opacity: 0.6; cursor: wait; }
+
+/* ================= GALERÍA PERSONAL ================= */
+.profile-gallery-section {
+    margin-top: 24px;
+    background: #111111;
+    border: 2px solid #2D2D2D;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.profile-gallery-section h5 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    color: #E1B12C;
+    margin: 0;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.gallery-item {
+    background: #1A1A1A;
+    border: 2px solid #2D2D2D;
+    border-radius: 4px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.gallery-item img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    image-rendering: pixelated;
+    display: block;
+    background: #0B0B0B;
+}
+
+.gallery-item-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #FFFFFF;
+    margin: 6px 8px 2px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gallery-item-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #999999;
+    margin: 0 8px 8px 8px;
+}
+
+/* ================= MODAL: EDITAR PERFIL ================= */
+.profile-edit-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-edit-modal.open {
+    display: flex;
+}
+
+.profile-edit-box {
+    background: #1A1A1A;
+    border: 3px solid #00B0FF;
+    border-radius: 6px;
+    width: 420px;
+    max-width: 90vw;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.profile-edit-box .auth-form {
+    padding: 20px;
+}
+
+.profile-edit-box select {
+    background: #111111;
+    border: 2px solid #333333;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+}
+
+.profile-edit-box textarea {
+    background: #111111;
+    border: 2px solid #333333;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    padding: 10px 12px;
+    resize: vertical;
+}
+
+.profile-edit-box input[type="file"] {
+    color: #CCCCCC;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+}
+
+.tags-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #2D2D2D;
+    border: 1px solid #444444;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #FFFFFF;
+}
+
+.tag-chip button {
+    background: none;
+    border: none;
+    color: #FF6B6B;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0;
+}
+
+/* ================= ADAPTACIÓN POR MODO DE COLOR ================= */
+body.theme-cuarzo .activity-block { background: #D7CCC8; border-color: #BCAAA4; }
+body.theme-cuarzo .activity-block h5 { color: #3E2723; }
+body.theme-cuarzo .profile-gallery-section { background: #D7CCC8; border-color: #BCAAA4; }
+body.theme-cuarzo .profile-gallery-section h5 { color: #3E2723; }
+
+body.theme-nether .activity-block { background: #1A1111; border-color: #3A1212; }
+body.theme-nether .activity-block h5 { color: #FF4D4D; }
+body.theme-nether .profile-gallery-section { background: #1A1111; border-color: #3A1212; }
+body.theme-nether .profile-gallery-section h5 { color: #FF4D4D; }
+
+body.theme-end .activity-block { background: #1C111A; border-color: #3F243A; }
+body.theme-end .activity-block h5 { color: #E0B0FF; }
+body.theme-end .profile-gallery-section { background: #1C111A; border-color: #3F243A; }
+body.theme-end .profile-gallery-section h5 { color: #E0B0FF; }
